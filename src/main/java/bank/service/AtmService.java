@@ -1,10 +1,12 @@
 package bank.service;
 
-import bank.entity.Bank;
-import bank.entity.BankAtm;
-import bank.entity.BankOffice;
-import bank.entity.Employee;
-import bank.entity.additions.StatusATM;
+import bank.entity.finance.Bank;
+import bank.entity.finance.BankAtm;
+import bank.entity.finance.BankOffice;
+import bank.entity.man.Employee;
+import bank.entity.status.StatusATM;
+
+import java.math.BigDecimal;
 
 public interface AtmService {
     void create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
@@ -16,8 +18,10 @@ public interface AtmService {
     // Возврат экземпляра банкомата
     BankAtm getBankATM();
 
-    Boolean addMoney(Double sumMoney);
-    Boolean subtractMoney(Double sumMoney);
+    Boolean isPossibleToAddMoney(double sumMoney);
+    Boolean isPossibleToSubstractMoney(double sumMoney);
+
+    //TODO с маленькой буквы и понятные названия
     void IssuanceMoneyOn();
     void IssuanceMoneyOff();
     void DepositMoneyOn();

@@ -1,12 +1,12 @@
 package bank.service;
 
-import bank.entity.Bank;
+import bank.entity.finance.Bank;
 
-public interface BankService {
-    void create(Integer id, String name);
+public interface BankService<T> {
+    T create(Integer id, String name);
     void update(Bank bank);
     void delete();
-    Bank getBank();
+    T getBank();
     void addMoney(Bank bank, Double sumMoney);
     Boolean subtractMoney(Bank bank, Double sumMoney);
 }

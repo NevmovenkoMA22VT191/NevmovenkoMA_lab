@@ -1,8 +1,8 @@
 package bank.service;
 
-import bank.entity.Bank;
-import bank.entity.PaymentAccount;
-import bank.entity.User;
+import bank.entity.finance.Bank;
+import bank.entity.finance.PaymentAccount;
+import bank.entity.man.User;
 
 public interface PaymentAccountService {
     void create(Integer id, User user, Bank bank);

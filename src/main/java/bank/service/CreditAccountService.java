@@ -1,6 +1,10 @@
 package bank.service;
 
-import bank.entity.*;
+import bank.entity.finance.Bank;
+import bank.entity.finance.CreditAccount;
+import bank.entity.finance.PaymentAccount;
+import bank.entity.man.Employee;
+import bank.entity.man.User;
 
 import java.time.LocalDate;
 

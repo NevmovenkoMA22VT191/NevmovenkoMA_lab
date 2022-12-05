@@ -1,20 +1,21 @@
 package bank.service.impl;
 
-import bank.entity.Bank;
+import bank.entity.finance.Bank;
 import bank.service.BankService;
 
 import java.util.Random;
 
-public class BankServiceImpl implements BankService {
+public class BankServiceImpl implements BankService<Bank> {
     private Bank bank = null;
 
     // Создание экземпляра банка
     @Override
-    public void create(Integer id, String name) {
+    public Bank create(Integer id, String name) {
         this.bank = new Bank(id, name);
         calcRating();
         calcMoney();
         calcRate();
+        return this.bank;
     }
 
     // Обновление экземпляра банка

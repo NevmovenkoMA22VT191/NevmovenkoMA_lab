@@ -1,8 +1,8 @@
 package bank.service.impl;
 
-import bank.entity.Bank;
-import bank.entity.BankOffice;
-import bank.entity.Employee;
+import bank.entity.finance.Bank;
+import bank.entity.finance.BankOffice;
+import bank.entity.man.Employee;
 import bank.service.EmployeeService;
 
 import java.time.LocalDate;

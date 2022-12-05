@@ -1,12 +1,13 @@
 package bank.service.impl;
 
-import bank.entity.Bank;
-import bank.entity.BankAtm;
-import bank.entity.BankOffice;
-import bank.entity.Employee;
-import bank.entity.additions.StatusATM;
+import bank.entity.finance.Bank;
+import bank.entity.finance.BankAtm;
+import bank.entity.finance.BankOffice;
+import bank.entity.man.Employee;
+import bank.entity.status.StatusATM;
 import bank.service.AtmService;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class AtmServiceImpl implements AtmService {
@@ -45,11 +46,12 @@ public class AtmServiceImpl implements AtmService {
         return this.bankAtm;
     }
 
+
     // При работе банкомата деньги совершают путь: банкомат -> офис банкомата -> банк;
     // Возращается true, иначе false
     @Override
-    public Boolean addMoney(Double sumMoney) {
-        if (!Objects.equals(this.bankAtm.getStatus(), StatusATM.Work)) {
+    public Boolean isPossibleToAddMoney(double sumMoney) {
+        if (this.bankAtm.getStatus() == StatusATM.OPEN) {
             return Boolean.FALSE;
         }
         this.bankAtm.setMoney(this.bankAtm.getMoney() + sumMoney);
@@ -61,13 +63,13 @@ public class AtmServiceImpl implements AtmService {
     // При работе банкомата и наличии денег, деньги выдаются путем: банкомат отдает -> офис банкамата отдает ->
     // банк отдает;
     // Возращается true, иначе false
-    @Override
-    public Boolean subtractMoney(Double sumMoney) {
-        if ((Objects.equals(this.bankAtm.getStatus(), StatusATM.NotWork)) || (Objects.equals(this.bankAtm.getStatus(),
-                StatusATM.NoMoney)) || (this.bankAtm.getMoney() < sumMoney))
+    public Boolean isPossibleToSubstractMoney(double sumMoney) {
+        if (this.bankAtm.getStatus() == StatusATM.CLOSED
+                || this.bankAtm.getStatus() == StatusATM.OUT_OF_MONEY
+                || this.bankAtm.getMoney() < sumMoney)
             return Boolean.FALSE;
-        if (Objects.equals(this.bankAtm.getMoney(), sumMoney))
-            this.bankAtm.setStatus(StatusATM.NoMoney);
+        if (this.bankAtm.getMoney() == sumMoney)
+            this.bankAtm.setStatus(StatusATM.OUT_OF_MONEY);
         this.bankAtm.setMoney(this.bankAtm.getMoney() - sumMoney);
         this.bankAtm.getBankOffice().setMoney(this.bankAtm.getBankOffice().getMoney() - sumMoney);
         this.bankAtm.getBank().setMoney(this.bankAtm.getBank().getMoney() - sumMoney);
@@ -78,13 +80,13 @@ public class AtmServiceImpl implements AtmService {
     // Банкомат может выдавать деньги(разрешено)
     @Override
     public void IssuanceMoneyOn() {
-        this.bankAtm.setWorkIssuanceMoney(Boolean.TRUE);
+        this.bankAtm.setWorkInsuranceMoney(Boolean.TRUE);
     }
 
     // Банкомат не может выдавать деньги(запрещено)
     @Override
     public void IssuanceMoneyOff() {
-        this.bankAtm.setWorkIssuanceMoney(Boolean.TRUE);
+        this.bankAtm.setWorkInsuranceMoney(Boolean.TRUE);
     }
 
     // Банкомат может получать деньги(разрешено)

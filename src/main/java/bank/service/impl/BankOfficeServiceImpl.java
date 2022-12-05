@@ -1,9 +1,9 @@
 package bank.service.impl;
 
-import bank.entity.Bank;
-import bank.entity.BankAtm;
-import bank.entity.BankOffice;
-import bank.entity.additions.StatusOffice;
+import bank.entity.finance.Bank;
+import bank.entity.finance.BankAtm;
+import bank.entity.finance.BankOffice;
+import bank.entity.status.StatusOffice;
 import bank.service.BankOfficeService;
 
 public class BankOfficeServiceImpl implements BankOfficeService {

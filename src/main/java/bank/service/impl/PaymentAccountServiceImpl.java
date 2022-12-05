@@ -1,8 +1,8 @@
 package bank.service.impl;
 
-import bank.entity.Bank;
-import bank.entity.PaymentAccount;
-import bank.entity.User;
+import bank.entity.finance.Bank;
+import bank.entity.finance.PaymentAccount;
+import bank.entity.man.User;
 import bank.service.PaymentAccountService;
 
 public class PaymentAccountServiceImpl implements PaymentAccountService {

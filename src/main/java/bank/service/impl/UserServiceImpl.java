@@ -1,6 +1,6 @@
 package bank.service.impl;
 
-import bank.entity.User;
+import bank.entity.man.User;
 import bank.service.UserService;
 
 import java.time.LocalDate;

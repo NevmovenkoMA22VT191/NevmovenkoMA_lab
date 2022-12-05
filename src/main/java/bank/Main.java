@@ -1,7 +1,7 @@
 package bank;
 
-import bank.entity.additions.StatusATM;
-import bank.entity.additions.StatusOffice;
+import bank.entity.status.StatusATM;
+import bank.entity.status.StatusOffice;
 import bank.service.impl.*;
 
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ public class Main {
         System.out.println("\n\nОфис:");
         BankOfficeServiceImpl bankOfficeService = new BankOfficeServiceImpl();
         bankOfficeService.create(1, "Офис №1", bankService.getBank(), "Улица Костюкова 36г",
-                StatusOffice.Work, 47500.0);
+                StatusOffice.OPEN, 47500.0);
         System.out.println(bankOfficeService.getBankOffice());
 
         //Employee
@@ -31,7 +31,7 @@ public class Main {
         //Bank ATM
         System.out.println("\n\nБанкомат:");
         AtmServiceImpl atmService = new AtmServiceImpl();
-        atmService.create(1, "Сбер", StatusATM.Work, Boolean.TRUE, Boolean.TRUE,
+        atmService.create(1, "Сбер", StatusATM.OPEN, Boolean.TRUE, Boolean.TRUE,
                 500.0, bankService.getBank(), bankOfficeService.getBankOffice(),
                 employeeService.getEmployee());
         System.out.println(atmService.getBankATM());
@@ -53,8 +53,7 @@ public class Main {
         System.out.println("\n\nКредитный аккаунт:");
         CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
         creditAccountService.create(1, userService.getUser(), bankService.getBank(), employeeService.getEmployee(),
-                paymentAccountService.getPayAcc(), LocalDate.of(2022, 11, 25), 20,
-                150000.0);
+                paymentAccountService.getPayAcc(), LocalDate.of(2022, 11, 25), 20, 150000.0);
         System.out.println(creditAccountService.getCreditAcc());
 
     }
