@@ -42,9 +42,9 @@ public class Bank {
     //TODO toString
     @Override
     public String toString() {
-        final String toString = String.format("Имя банка: %s. \n Количество офисов: %s. \n ...", name, countOffice);
-        return "Имя банка: " +  name + "\nКоличество офисов: " + countOffice + "\nКоличество банкоматов: " + countATM +
-                "\nКоличество сотрудников: " + countEmployees + "\nКоличество клиентов: " + countClients +
-                "\nРейтинг: " + rating + "\nКоличество денег: " + money + "\nПроцентная ставка: " + interestRate;
+        return String.format("Имя банка: %s. \n Количество офисов: %s. \n", name, countOffice) + 
+         "Имя банка: " +  name + "\nКоличество офисов: " + countOffice + "\nКоличество банкоматов: " + countATM +
+          "\nКоличество сотрудников: " + countEmployees + "\nКоличество клиентов: " + countClients +
+          "\nРейтинг: " + rating + "\nКоличество денег: " + money + "\nПроцентная ставка: " + interestRate;
     }
 }
