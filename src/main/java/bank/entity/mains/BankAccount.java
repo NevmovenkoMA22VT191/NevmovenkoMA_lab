@@ -1,11 +1,7 @@
 package bank.entity.mains;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import bank.entity.Bank;
-import bank.entity.User;
 
 @Setter
 @Getter
