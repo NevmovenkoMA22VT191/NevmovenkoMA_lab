@@ -6,24 +6,82 @@ import bank.entity.finance.BankOffice;
 import bank.entity.man.Employee;
 import bank.entity.status.StatusATM;
 
-import java.math.BigDecimal;
+/**
+ * Интерфейс AtmService
+ * @param <T>
+ */
+public interface AtmService<T> {
 
-public interface AtmService {
-    void create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
+    /**
+     * Create <T>BankATM</T>
+     * @param id
+     * @param name
+     * @param status
+     * @param workPayMoney
+     * @param workDepositMoney
+     * @param maintenanceCost
+     * @param bank
+     * @param bankOffice
+     * @param employee
+     * @return
+     */
+    T create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
                 Double maintenanceCost, Bank bank, BankOffice bankOffice, Employee employee);
+
+    /**
+     * Update <T>BankATM</T>
+     * @param bankAtm
+     */
     void update(BankAtm bankAtm);
+
+    /**
+     * Delete <T>BankATM</T>
+     */
     void delete();
-    BankAtm getBankAtm();
 
-    // Возврат экземпляра банкомата
-    BankAtm getBankATM();
+    /**
+     * Return BankAtm
+     * @return
+     */
+    T getBankAtm();
 
+    /**
+     * Return BankAtm
+     * @return
+     */
+    T getBankATM();
+
+    /**
+     * Метод isPossibleToAddMoney - добавление суммы денег к счету
+     * @param sumMoney
+     * @return
+     */
     Boolean isPossibleToAddMoney(double sumMoney);
+
+    /**
+     * Метод isPossibleToSubstractMoney - вычесть сумму денег со счета
+     * @param sumMoney
+     * @return
+     */
     Boolean isPossibleToSubstractMoney(double sumMoney);
 
-    //TODO с маленькой буквы и понятные названия
+    /**
+     * Метод IssuanceMoneyOn - выдача денег со счета разрешена/возможна
+     */
     void IssuanceMoneyOn();
+
+    /**
+     * Метод IssuanceMoneyOn - выдача денег со счета запрещена/невозможна
+     */
     void IssuanceMoneyOff();
+
+    /**
+     * Метод DepositMoneyOn - внос денег на счет разрешена/возможна
+     */
     void DepositMoneyOn();
+
+    /**
+     * Метод DepositMoneyOn - внос денег на счет запрещена/невозможна
+     */
     void DepositMoneyOff();
 }

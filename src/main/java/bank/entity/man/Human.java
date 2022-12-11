@@ -5,17 +5,46 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-// Human - объект человек, содержит поля:
+
 // id человека, имя, фамилия, отчество, дата рождения.
 @Setter
 @Getter
+/**
+ * Human - объект человек
+ */
 public class Human {
+    /**
+     * Id человека
+     */
     private Integer id;
+
+    /**
+     * Имя человека
+     */
     private String name;
+
+    /**
+     * Фамилия человека
+     */
     private String surname;
+
+    /**
+     * Отчество человека
+     */
     private String middleName = null;
+
+    /**
+     * Дата рождения человека
+     */
     private LocalDate birthDay;
 
+    /**\
+     * Конструктор Human (Без Отчества)
+     * @param id
+     * @param name
+     * @param surname
+     * @param birthDay
+     */
     public Human(Integer id, String name, String surname, LocalDate birthDay) {
         this.id = id;
         this.name = name;
@@ -23,6 +52,14 @@ public class Human {
         this.birthDay = birthDay;
     }
 
+    /**
+     * Конструктор Human
+     * @param id
+     * @param name
+     * @param surname
+     * @param middleName
+     * @param birthDay
+     */
     public Human(Integer id, String name, String surname, String middleName, LocalDate birthDay) {
         this.id = id;
         this.name = name;
@@ -31,6 +68,10 @@ public class Human {
         this.birthDay = birthDay;
     }
 
+    /**
+     * Выводим полное имя человека (его ФИО)
+     * @return
+     */
     public String getFullName() {
         if (middleName != null)
             return name + " " + surname + " " + middleName;

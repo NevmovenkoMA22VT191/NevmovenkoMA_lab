@@ -8,53 +8,56 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        //Bank
-        System.out.println("Банк:");
-        BankServiceImpl bankService = new BankServiceImpl();
-        bankService.create(1, "Сбербанк");
-        System.out.println(bankService.getBank());
+        ArrayList<BankServiceImpl> banks = new ArrayList<>();
+        ArrayList<UserServiceImpl> users = new ArrayList<>();
+        for (int i_1 = 0; i_1 < 5; i_1++) {
+            BankServiceImpl bankService = new BankServiceImpl();
+            bankService.create(i_1, String.format("bank_№%d", i_1));
+            for (int i_2 = 0; i_2 < 3; i_2++) {
+                BankOfficeServiceImpl bankOfficeService = new BankOfficeServiceImpl();
+                bankOfficeService.create(i_2 + i_1, String.format("office_№%d", i_2), bankService.getBank(),
+                        String.format("address_%d", i_2), StatusOffice.Work, 15000.0);
+                for (int i_3 = 0; i_3 < 5; i_3++) {
+                    EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+                    employeeService.create(i_3 + i_2 + i_1, String.format("Ivan_%d", i_3 + i_2 + i_1), "Ivanov",
+                            LocalDate.of(2000, 10, 11), bankService.getBank(),
+                            bankOfficeService.getBankOffice(), String.format("job_%d", i_3), 100.0);
+                    bankOfficeService.addEmployee(employeeService);
+                    bankService.addEmployee(employeeService);
+                }
+                AtmServiceImpl atmService = new AtmServiceImpl();
+                atmService.create(i_2 + i_1, String.format("ATM_%d", i_2 + i_1), StatusATM.Work, Boolean.TRUE, Boolean.TRUE,
+                        100.0, bankOfficeService.getBankOffice().getBank(),
+                        bankOfficeService.getBankOffice(), bankOfficeService.getBankOffice().getEmployees().get(1));
+                bankOfficeService.addBankATM(atmService);
+                bankService.addBankATM(atmService);
+                bankService.addBankOffice(bankOfficeService);
+            }
 
-        //Bank Office
-        System.out.println("\n\nОфис:");
-        BankOfficeServiceImpl bankOfficeService = new BankOfficeServiceImpl();
-        bankOfficeService.create(1, "Офис №1", bankService.getBank(), "Улица Костюкова 36г",
-                StatusOffice.OPEN, 47500.0);
-        System.out.println(bankOfficeService.getBankOffice());
+            UserServiceImpl userService = new UserServiceImpl();
+            userService.create(i_1, String.format("Maxim_%d", i_1), "Maximovich", LocalDate.of(2000,
+                    10, 11), String.format("work_%d", i_1));
+            for (int i_2 = 0; i_2 < 2; i_2++) {
+                PaymentAccountServiceImpl paymentAccountService = new PaymentAccountServiceImpl();
+                paymentAccountService.create(i_2 + i_1, userService.getUser(), bankService.getBank());
 
-        //Employee
-        System.out.println("\n\nРаботник:");
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-        employeeService.create(1, "Михаил", "Невмовенко", LocalDate.of(2001, 10, 11),
-                bankService.getBank(), bankOfficeService.getBankOffice(), "Менеджер", 15000.0);
-        System.out.println(employeeService.getEmployee());
+                CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
+                creditAccountService.create(i_2 + i_1, userService.getUser(), bankService.getBank(),
+                        bankService.getBank().getEmployees().get(1), paymentAccountService.getPayAcc(),
+                        LocalDate.of(2022, 11, 11), 12, 150.0);
 
-        //Bank ATM
-        System.out.println("\n\nБанкомат:");
-        AtmServiceImpl atmService = new AtmServiceImpl();
-        atmService.create(1, "Сбер", StatusATM.OPEN, Boolean.TRUE, Boolean.TRUE,
-                500.0, bankService.getBank(), bankOfficeService.getBankOffice(),
-                employeeService.getEmployee());
-        System.out.println(atmService.getBankATM());
+                userService.addPayAcc(paymentAccountService);
+                userService.addCreditAcc(creditAccountService);
+            }
+            bankService.addUser(userService);
+            banks.add(bankService);
+            users.add(userService);
+        }
 
-        //User
-        System.out.println("\n\nКлиент банка::");
-        UserServiceImpl userService = new UserServiceImpl();
-        userService.create(1, "Павел", "Невмовенко", LocalDate.of(1995, 9, 2),
-                "Архитектор ПО");
-        System.out.println(userService.getUser());
-
-        //Payment Account
-        System.out.println("\n\nПлатежный счет:");
-        PaymentAccountServiceImpl paymentAccountService = new PaymentAccountServiceImpl();
-        paymentAccountService.create(1, userService.getUser(), bankService.getBank());
-        System.out.println(paymentAccountService.getPayAcc());
-
-        //Credit Account
-        System.out.println("\n\nКредитный аккаунт:");
-        CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
-        creditAccountService.create(1, userService.getUser(), bankService.getBank(), employeeService.getEmployee(),
-                paymentAccountService.getPayAcc(), LocalDate.of(2022, 11, 25), 20, 150000.0);
-        System.out.println(creditAccountService.getCreditAcc());
-
+        System.out.println("Банк");
+        System.out.println(banks.get(0).getInfo());
+        System.out.println("\n\nКлиент");
+        System.out.println(users.get(0).getInfo());
     }
+
 }
