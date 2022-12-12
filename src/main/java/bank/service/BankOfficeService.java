@@ -1,5 +1,7 @@
 package bank.service;
 
+import bank.entity.exceptions.AtmOfficeException;
+import bank.entity.exceptions.EmployeeOfficeException;
 import bank.entity.finance.Bank;
 import bank.entity.finance.BankAtm;
 import bank.entity.finance.BankOffice;
@@ -111,26 +113,26 @@ public interface BankOfficeService {
      * @param atm
      * @return
      */
-    Boolean addBankATM(AtmService atm);
+    void addBankATM(AtmService atm) throws AtmOfficeException;
 
     /**
      * Метод delBankATM - удаляет из банка банкомат
      * @param atm
      * @return
      */
-    Boolean delBankATM(AtmService atm);
+     void delBankATM(AtmService atm) throws  AtmOfficeException;
 
     /**
      * Метод addEmployee - добавляет работника в банк
      * @param employee
      * @return
      */
-    Boolean addEmployee(EmployeeService employee);
+    void addEmployee(EmployeeService employee) throws EmployeeOfficeException;
 
     /**
      * Метод delEmployee - удаляет работника из банка
      * @param employee
      * @return
      */
-    Boolean delEmployee(EmployeeService employee);
+    void delEmployee(EmployeeService employee) throws EmployeeOfficeException;
 }

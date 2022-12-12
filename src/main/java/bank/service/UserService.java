@@ -1,6 +1,10 @@
 package bank.service;
 
+import bank.entity.exceptions.*;
 import bank.entity.finance.Bank;
+import bank.entity.finance.BankAtm;
+import bank.entity.finance.BankOffice;
+import bank.entity.man.Employee;
 import bank.entity.man.User;
 
 import java.time.LocalDate;
@@ -69,32 +73,37 @@ public interface UserService {
      * @param creditAcc
      * @return
      */
-    Boolean addCreditAcc(CreditAccountService creditAcc);
+    void addCreditAcc(CreditAccountService creditAcc) throws CreditAccountException;
 
     /**
      * Метод delCreditAcc - удаляет кредитный аккаунт у пользователя
      * @param creditAcc
      * @return
      */
-    Boolean delCreditAcc(CreditAccountService creditAcc);
+    void delCreditAcc(CreditAccountService creditAcc) throws CreditAccountException;
 
     /**
      * Метод addPayAcc - добавляет платежный аккаунт пользователю
      * @param payAcc
      * @return
      */
-    Boolean addPayAcc(PaymentAccountService payAcc);
+    void addPayAcc(PaymentAccountService payAcc) throws PaymentAccountException;
 
     /**
      * Метод delPayAcc - удаляет платежный аккаунт у пользователя
      * @param payAcc
      * @return
      */
-    Boolean delPayAcc(PaymentAccountService payAcc);
+    void delPayAcc(PaymentAccountService payAcc) throws PaymentAccountException;
+
+    void applyForLoan(BankService bank, BankOffice workOffice, Employee workEmployee, BankAtm atm, Double loanSum,
+                      LocalDate startDate, Integer countMonth, PaymentAccountService payAcc,
+                      CreditAccountService creditAcc) throws CreditException, LowRatingUserException,
+            PaymentAccountException, UserBankException, CreditAccountException;
 
     /**
      * Метод getInfo - выводит данные в понятном и читаемом виде
      * @return
      */
-    String getInfo();
+    String toString();
 }
