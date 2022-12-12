@@ -6,27 +6,27 @@ import bank.entity.man.User;
 
 /**
  * Интерфейс PaymentAccount
- * @param <T>
+ * @param
  */
-public interface PaymentAccountService<T> {
+public interface PaymentAccountService {
 
     /**
-     * Create <T>PaymentAccount</T>
+     * Create PaymentAccount
      * @param id
      * @param user
      * @param bank
      * @return
      */
-    T create(Integer id, User user, Bank bank);
+    void create(Integer id, User user, Bank bank);
 
     /**
-     * Update <T>PaymentAccount</T>
+     * Update PaymentAccount
      * @param payAcc
      */
     void update(PaymentAccount payAcc);
 
     /**
-     * Delete <T>PaymentAccount</T>
+     * Delete PaymentAccount
      */
     void delete();
 
@@ -34,7 +34,7 @@ public interface PaymentAccountService<T> {
      * Return PaymentAccount
      * @return
      */
-    T getPayAcc();
+    PaymentAccount getPayAcc();
 
     /**
      * Метод addMoney - добавление денег на счет клиента

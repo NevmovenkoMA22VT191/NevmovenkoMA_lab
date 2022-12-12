@@ -31,8 +31,19 @@ public class User extends Human {
      */
     private Integer creditRating;
 
+    /**
+     * Массив banks интерфейса List
+     */
     private ArrayList<Bank> banks;
+
+    /**
+     * Массив creditAccounts интерфейса List
+     */
     private ArrayList<CreditAccount> creditAccounts;
+
+    /**
+     * Массив paymentAccounts интерфейса List
+     */
     private ArrayList<PaymentAccount> paymentAccounts;
 
     /**
@@ -48,7 +59,6 @@ public class User extends Human {
         this.work = work;
         this.monthSalary = null;
         this.creditRating = 0;
-
         this.banks = new ArrayList<>();
         this.creditAccounts = new ArrayList<>();
         this.paymentAccounts = new ArrayList<>();
@@ -68,7 +78,6 @@ public class User extends Human {
         this.work = work;
         this.monthSalary = null;
         this.creditRating = 0;
-
         this.banks = new ArrayList<>();
         this.creditAccounts = new ArrayList<>();
         this.paymentAccounts = new ArrayList<>();

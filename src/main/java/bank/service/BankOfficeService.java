@@ -7,11 +7,11 @@ import bank.entity.status.StatusOffice;
 
 /**
  * Интерфейс BankOfficeService
- * @param <T>
+ * @param
  */
-public interface BankOfficeService<T> {
+public interface BankOfficeService {
     /**
-     * Create <T>BankOffice</T>
+     * Create BankOffice
      * @param id
      * @param name
      * @param bank
@@ -20,16 +20,16 @@ public interface BankOfficeService<T> {
      * @param rentCost
      * @return
      */
-    T create(Integer id, String name, Bank bank, String address, StatusOffice status, Double rentCost);
+    void create(Integer id, String name, Bank bank, String address, StatusOffice status, Double rentCost);
 
     /**
-     * Update <T>BankOffice</T>
+     * Update BankOffice
      * @param bankOffice
      */
     void update(BankOffice bankOffice);
 
     /**
-     * Delete <T>BankOffice</T>
+     * Delete BankOffice
      */
     void delete();
 
@@ -37,7 +37,7 @@ public interface BankOfficeService<T> {
      * Return BankOffice
      * @return
      */
-    T getBankOffice();
+    BankOffice getBankOffice();
 
 
     /**
@@ -106,8 +106,31 @@ public interface BankOfficeService<T> {
     void ApplyLoanOff();
 
 
+    /**
+     * Метод addBankATM - добавляет в банк банкомат
+     * @param atm
+     * @return
+     */
     Boolean addBankATM(AtmService atm);
+
+    /**
+     * Метод delBankATM - удаляет из банка банкомат
+     * @param atm
+     * @return
+     */
     Boolean delBankATM(AtmService atm);
+
+    /**
+     * Метод addEmployee - добавляет работника в банк
+     * @param employee
+     * @return
+     */
     Boolean addEmployee(EmployeeService employee);
+
+    /**
+     * Метод delEmployee - удаляет работника из банка
+     * @param employee
+     * @return
+     */
     Boolean delEmployee(EmployeeService employee);
 }

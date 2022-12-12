@@ -62,9 +62,24 @@ public class Bank {
      */
     private double interestRate;
 
+    /**
+     * Массив offices интерфейса List
+     */
     private ArrayList<BankOffice> offices;
+
+    /**
+     * Массив atms интерфейса List
+     */
     private ArrayList<BankAtm> atms;
+
+    /**
+     * Массив employees интерфейса List
+     */
     private ArrayList<Employee> employees;
+
+    /**
+     * Массив clients интерфейса List
+     */
     private ArrayList<User> clients;
 
     /**
@@ -82,7 +97,6 @@ public class Bank {
         this.rating = 0;
         this.money = 0;
         this.interestRate = 0;
-
         this.offices = new ArrayList<>();
         this.atms = new ArrayList<>();
         this.employees = new ArrayList<>();

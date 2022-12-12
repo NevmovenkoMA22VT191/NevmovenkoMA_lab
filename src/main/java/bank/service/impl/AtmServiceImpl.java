@@ -27,13 +27,12 @@ public class AtmServiceImpl implements AtmService {
      * @return
      */
     @Override
-    public BankAtm create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
+    public void create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
                        Double maintenanceCost, Bank bank, BankOffice bankOffice, Employee employee) {
         bank.setCountATM(bank.getCountATM() + 1);
         bankOffice.setCountATM(bankOffice.getCountATM() + 1);
         this.bankAtm = new BankAtm(id, name, status, workPayMoney, workDepositMoney, maintenanceCost, bank,
                 bankOffice, employee);
-        return this.bankAtm;
     }
 
     /**

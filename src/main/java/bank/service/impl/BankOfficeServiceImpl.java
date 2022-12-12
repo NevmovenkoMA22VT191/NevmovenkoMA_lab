@@ -3,8 +3,11 @@ package bank.service.impl;
 import bank.entity.finance.Bank;
 import bank.entity.finance.BankAtm;
 import bank.entity.finance.BankOffice;
+import bank.entity.man.Employee;
 import bank.entity.status.StatusOffice;
+import bank.service.AtmService;
 import bank.service.BankOfficeService;
+import bank.service.EmployeeService;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,10 +28,9 @@ public class BankOfficeServiceImpl implements BankOfficeService {
      * @param rentCost
      */
     @Override
-    public BankOffice create(Integer id, String name, Bank bank, String address, StatusOffice status, Double rentCost) {
+    public void create(Integer id, String name, Bank bank, String address, StatusOffice status, Double rentCost) {
         bank.setCountOffice(bank.getCountOffice() + 1);
         this.bankOffice = new BankOffice(id, name, bank, address, status, rentCost);
-        return this.bankOffice;
     }
 
     /**
@@ -55,6 +57,70 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     @Override
     public BankOffice getBankOffice() {
         return this.bankOffice;
+    }
+
+    /**
+     * Добавление банкомата в список банкоматов офиса
+     * @param atm
+     * @return
+     */
+    @Override
+    public Boolean addBankATM(AtmService atm) {
+        if (!Objects.equals(atm.getBankATM().getBankOffice(), this.bankOffice))
+            return false;
+        ArrayList<BankAtm> bankATMS = this.bankOffice.getBankATMS();
+        bankATMS.add(atm.getBankATM());
+        this.bankOffice.setBankATMS(bankATMS);
+        atm.getBankATM().setBankOffice(this.bankOffice);
+        return true;
+    }
+
+    /**
+     * Удаление банкомата из списка банкоматов офиса
+     * @param atm
+     * @return
+     */
+    @Override
+    public Boolean delBankATM(AtmService atm) {
+        if (!Objects.equals(atm.getBankATM().getBankOffice(), this.bankOffice))
+            return false;
+        ArrayList<BankAtm> bankATMS = this.bankOffice.getBankATMS();
+        bankATMS.remove(atm.getBankATM());
+        this.bankOffice.setBankATMS(bankATMS);
+        atm.getBankATM().setBankOffice(this.bankOffice);
+        return true;
+    }
+
+    /**
+     * Добавление работника в список работников офиса
+     * @param employee
+     * @return
+     */
+    @Override
+    public Boolean addEmployee(EmployeeService employee) {
+        if (!Objects.equals(employee.getEmployee().getBankOffice(), this.bankOffice))
+            return false;
+        ArrayList<Employee> employees = this.bankOffice.getEmployees();
+        employees.add(employee.getEmployee());
+        this.bankOffice.setEmployees(employees);
+        employee.getEmployee().setBankOffice(this.bankOffice);
+        return true;
+    }
+
+    /**
+     * Удаление работника из списка работников офиса
+     * @param employee
+     * @return
+     */
+    @Override
+    public Boolean delEmployee(EmployeeService employee) {
+        if (!Objects.equals(employee.getEmployee().getBankOffice(), this.bankOffice))
+            return false;
+        ArrayList<Employee> employees = this.bankOffice.getEmployees();
+        employees.remove(employee.getEmployee());
+        this.bankOffice.setEmployees(employees);
+        employee.getEmployee().setBankOffice(this.bankOffice);
+        return true;
     }
 
     /**

@@ -8,11 +8,11 @@ import java.time.LocalDate;
 
 /**
  * Интерфейс Employee
- * @param <T>
+ * @param
  */
-public interface EmployeeService<T> {
+public interface EmployeeService {
     /**
-     * Create <T>Employee</T>
+     * Create Employee
      * @param id
      * @param name
      * @param surname
@@ -23,17 +23,17 @@ public interface EmployeeService<T> {
      * @param salary
      * @return
      */
-    T create(Integer id, String name, String surname, LocalDate birthday, Bank bank, BankOffice bankOffice,
+    void create(Integer id, String name, String surname, LocalDate birthday, Bank bank, BankOffice bankOffice,
                 String profession, Double salary);
 
     /**
-     * Update <T>Employee</T>
+     * Update Employee
      * @param employee
      */
     void update(Employee employee);
 
     /**
-     * Delete <T>Employee</T>
+     * Delete Employee
      */
     void delete();
 
@@ -41,7 +41,7 @@ public interface EmployeeService<T> {
      * Return Employee
      * @return
      */
-    T getEmployee();
+    Employee getEmployee();
 
     /**
      * Метод DistantWork - сотрудник работает удаленно/дистанционно

@@ -78,7 +78,14 @@ public class BankOffice {
      */
     private Double rentCost;
 
+    /**
+     * Массив bankATMS интерфейса List
+     */
     private ArrayList<BankAtm> bankATMS;
+
+    /**
+     * Массив employees интерфейса List
+     */
     private ArrayList<Employee> employees;
 
 
@@ -104,7 +111,6 @@ public class BankOffice {
         this.mayDepositMoney = true;
         this.money = 0.0;
         this.rentCost = rentCost;
-
         this.bankATMS = new ArrayList<>();
         this.employees = new ArrayList<>();
     }

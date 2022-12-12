@@ -29,11 +29,10 @@ public class CreditAccountServiceImpl implements CreditAccountService {
      * @return
      */
     @Override
-    public CreditAccount create(Integer id, User user, Bank bank, Employee employee, PaymentAccount paymentAccount,
+    public void create(Integer id, User user, Bank bank, Employee employee, PaymentAccount paymentAccount,
                        LocalDate startDate, Integer countMonth, Double amount) {
         this.creditAcc = new CreditAccount(id, user, bank, employee, paymentAccount, startDate, countMonth, amount);
         calcMonthlyAmount();
-        return this.creditAcc;
     }
 
     /**

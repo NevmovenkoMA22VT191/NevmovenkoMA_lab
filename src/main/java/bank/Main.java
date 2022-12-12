@@ -5,29 +5,46 @@ import bank.entity.status.StatusOffice;
 import bank.service.impl.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        final int countMaxBank = 5;
+        final int countMaxBankOffice = 3;
+        final int countMaxEmployee = 5;
+        final int countMaxPaymentAccount = 2;
+
+
         ArrayList<BankServiceImpl> banks = new ArrayList<>();
         ArrayList<UserServiceImpl> users = new ArrayList<>();
-        for (int i_1 = 0; i_1 < 5; i_1++) {
+
+        //TODO Разобрать вариант списка, который будет нормально генериться
+        // banks = Arrays.<String>asList("Сбербанк", "Тинькоф", "ВТБ");
+
+        //TODO Может как-то усовершенствовать конструкцию?!
+
+
+
+        for (int countBank = 0; countBank < countMaxBank; countBank++) {
             BankServiceImpl bankService = new BankServiceImpl();
-            bankService.create(i_1, String.format("bank_№%d", i_1));
-            for (int i_2 = 0; i_2 < 3; i_2++) {
+            bankService.create(countBank, String.format("Банк %d", countBank));
+            for (int countBankOffice = 0; countBankOffice < countMaxBankOffice; countBankOffice++) {
                 BankOfficeServiceImpl bankOfficeService = new BankOfficeServiceImpl();
-                bankOfficeService.create(i_2 + i_1, String.format("office_№%d", i_2), bankService.getBank(),
-                        String.format("address_%d", i_2), StatusOffice.Work, 15000.0);
-                for (int i_3 = 0; i_3 < 5; i_3++) {
+                bankOfficeService.create(countBankOffice + countBank, String.format("Офис %d", countBankOffice), bankService.getBank(),
+                        String.format("60 лет октября, дом %d", countBankOffice), StatusOffice.OPEN, 3500.0);
+                for (int countEmployee = 0; countEmployee < countEmployee; countEmployee++) {
                     EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-                    employeeService.create(i_3 + i_2 + i_1, String.format("Ivan_%d", i_3 + i_2 + i_1), "Ivanov",
-                            LocalDate.of(2000, 10, 11), bankService.getBank(),
-                            bankOfficeService.getBankOffice(), String.format("job_%d", i_3), 100.0);
+                    employeeService.create(countEmployee + countBankOffice + countBank, String.format("Невмовенко %d", countEmployee + countBankOffice + countBank), "Невмовенко",
+                            LocalDate.of(2001, 10, 11), bankService.getBank(),
+                            bankOfficeService.getBankOffice(), String.format("Менеджер %d", countEmployee), 40000.0);
                     bankOfficeService.addEmployee(employeeService);
                     bankService.addEmployee(employeeService);
                 }
                 AtmServiceImpl atmService = new AtmServiceImpl();
-                atmService.create(i_2 + i_1, String.format("ATM_%d", i_2 + i_1), StatusATM.Work, Boolean.TRUE, Boolean.TRUE,
-                        100.0, bankOfficeService.getBankOffice().getBank(),
+                atmService.create(countBankOffice + countBank, String.format("Банкомат SWIFT %d", countBankOffice + countBank), StatusATM.OPEN, Boolean.TRUE, Boolean.TRUE,
+                        250.0, bankOfficeService.getBankOffice().getBank(),
                         bankOfficeService.getBankOffice(), bankOfficeService.getBankOffice().getEmployees().get(1));
                 bankOfficeService.addBankATM(atmService);
                 bankService.addBankATM(atmService);
@@ -35,16 +52,16 @@ public class Main {
             }
 
             UserServiceImpl userService = new UserServiceImpl();
-            userService.create(i_1, String.format("Maxim_%d", i_1), "Maximovich", LocalDate.of(2000,
-                    10, 11), String.format("work_%d", i_1));
-            for (int i_2 = 0; i_2 < 2; i_2++) {
+            userService.create(countBank, String.format("Тинкоф %d", countBank), "Тинькоф", LocalDate.of(1873,
+                    05, 07), String.format("Предприниматель %d", countBank));
+            for (int countPaymentAccount = 0; countPaymentAccount < countMaxPaymentAccount; countPaymentAccount++) {
                 PaymentAccountServiceImpl paymentAccountService = new PaymentAccountServiceImpl();
-                paymentAccountService.create(i_2 + i_1, userService.getUser(), bankService.getBank());
+                paymentAccountService.create(countPaymentAccount + countBank, userService.getUser(), bankService.getBank());
 
                 CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
-                creditAccountService.create(i_2 + i_1, userService.getUser(), bankService.getBank(),
+                creditAccountService.create(countPaymentAccount + countBank, userService.getUser(), bankService.getBank(),
                         bankService.getBank().getEmployees().get(1), paymentAccountService.getPayAcc(),
-                        LocalDate.of(2022, 11, 11), 12, 150.0);
+                        LocalDate.of(2022, 12, 5), 12, 5700.0);
 
                 userService.addPayAcc(paymentAccountService);
                 userService.addCreditAcc(creditAccountService);

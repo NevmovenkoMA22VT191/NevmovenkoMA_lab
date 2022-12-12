@@ -8,12 +8,12 @@ import bank.entity.status.StatusATM;
 
 /**
  * Интерфейс AtmService
- * @param <T>
+ * @param
  */
-public interface AtmService<T> {
+public interface AtmService {
 
     /**
-     * Create <T>BankATM</T>
+     * Create BankATM
      * @param id
      * @param name
      * @param status
@@ -25,11 +25,11 @@ public interface AtmService<T> {
      * @param employee
      * @return
      */
-    T create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
+    void create(Integer id, String name, StatusATM status, Boolean workPayMoney, Boolean workDepositMoney,
                 Double maintenanceCost, Bank bank, BankOffice bankOffice, Employee employee);
 
     /**
-     * Update <T>BankATM</T>
+     * Update BankATM
      * @param bankAtm
      */
     void update(BankAtm bankAtm);
@@ -43,13 +43,13 @@ public interface AtmService<T> {
      * Return BankAtm
      * @return
      */
-    T getBankAtm();
+    BankAtm getBankAtm();
 
     /**
      * Return BankAtm
      * @return
      */
-    T getBankATM();
+     BankAtm getBankATM();
 
     /**
      * Метод isPossibleToAddMoney - добавление суммы денег к счету

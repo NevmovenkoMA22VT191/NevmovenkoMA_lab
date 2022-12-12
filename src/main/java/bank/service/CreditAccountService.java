@@ -10,11 +10,11 @@ import java.time.LocalDate;
 
 /**
  * Интерфейс CreditAccountService
- * @param <T>
+ * @param
  */
-public interface CreditAccountService<T> {
+public interface CreditAccountService {
     /**
-     * Create <T>CreditAccount</T>
+     * Create CreditAccount
      * @param id
      * @param user
      * @param bank
@@ -25,17 +25,17 @@ public interface CreditAccountService<T> {
      * @param amount
      * @return
      */
-    T create(Integer id, User user, Bank bank, Employee employee, PaymentAccount paymentAccount,
+    void create(Integer id, User user, Bank bank, Employee employee, PaymentAccount paymentAccount,
                 LocalDate startDate, Integer countMonth, Double amount);
 
     /**
-     * Update <T>CreditAccount</T>
+     * Update CreditAccount
      * @param creditAcc
      */
     void update(CreditAccount creditAcc);
 
     /**
-     * Delete <T>CreditAccount</T>
+     * Delete CreditAccount
      */
     void delete();
 
@@ -43,7 +43,7 @@ public interface CreditAccountService<T> {
      * Return CreditAccount
      * @return
      */
-    T getCreditAcc();
+    CreditAccount getCreditAcc();
 
     /**
      * Метод applyLoan - одобрение заявки на кредитование

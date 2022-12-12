@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 /**
  * Интерфейс User
- * @param <T>
+ * @param
  */
-public interface UserService<T> {
+public interface UserService {
     /**
-     * Create <T>User</T>
+     * Create User
      * @param id
      * @param name
      * @param surname
@@ -19,16 +19,16 @@ public interface UserService<T> {
      * @param work
      * @return
      */
-    T create(Integer id, String name, String surname, LocalDate birthDay, String work);
+    void create(Integer id, String name, String surname, LocalDate birthDay, String work);
 
     /**
-     * Update <T>User</T>
+     * Update User
      * @param user
      */
     void update(User user);
 
     /**
-     * Delete <T>User</T>
+     * Delete User
      */
     void delete();
 
@@ -36,7 +36,7 @@ public interface UserService<T> {
      * Return User
      * @return
      */
-    T getUser();
+    User getUser();
 
     /**
      * Метод changeWork - позволяет изменить данные о рабочей должности пользователя
@@ -51,10 +51,50 @@ public interface UserService<T> {
      */
     void changeMonthSalary(Double newMonthSalary);
 
+
+    /**
+     * Метод addBank - добавляет банк пользователю
+     * @param bank
+     */
     void addBank(Bank bank);
+
+    /**
+     * Метод delBank - удаляет банк у пользователя
+     * @param bank
+     */
     void delBank(Bank bank);
+
+    /**
+     * Метод addCreditAcc - добавляет кредитный аккаунт пользователю
+     * @param creditAcc
+     * @return
+     */
     Boolean addCreditAcc(CreditAccountService creditAcc);
+
+    /**
+     * Метод delCreditAcc - удаляет кредитный аккаунт у пользователя
+     * @param creditAcc
+     * @return
+     */
     Boolean delCreditAcc(CreditAccountService creditAcc);
+
+    /**
+     * Метод addPayAcc - добавляет платежный аккаунт пользователю
+     * @param payAcc
+     * @return
+     */
     Boolean addPayAcc(PaymentAccountService payAcc);
+
+    /**
+     * Метод delPayAcc - удаляет платежный аккаунт у пользователя
+     * @param payAcc
+     * @return
+     */
     Boolean delPayAcc(PaymentAccountService payAcc);
+
+    /**
+     * Метод getInfo - выводит данные в понятном и читаемом виде
+     * @return
+     */
+    String getInfo();
 }

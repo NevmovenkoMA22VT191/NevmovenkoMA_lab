@@ -19,10 +19,9 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
      * @return
      */
     @Override
-    public PaymentAccount create(Integer id, User user, Bank bank) {
+    public void create(Integer id, User user, Bank bank) {
 
         this.payAcc = new PaymentAccount(id, user, bank);
-        return this.payAcc;
     }
 
     /**
