@@ -6,27 +6,82 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-// BankAtm - объект банкомат, содержит поля:
-// id банкомата, имя банкомата, адрес, статус, банк, расположение банкомата, обслуживает сотрудник,
-// работает ли на выдачу денег, можно ли внести деньги, кол-во денег в банкомате, стоимость обслуживания.
+import java.text.DecimalFormat;
+
+/**
+ * BankAtm - объект банкомат
+ */
 @Setter
 @Getter
 @AllArgsConstructor
 public class BankAtm {
-    private Integer id;
+    /**
+     * Id банкомата
+     */
+    private int id;
+
+    /**
+     * Имя банкомата
+     */
     private String name;
+
+    /**
+     * Имя банка
+     */
     private Bank bank;
+
+    /**
+     * Офис банка
+     */
     private BankOffice bankOffice;
+
+    /**
+     * Сотрудник, обслуживающий банкомат
+     */
     private Employee employee;
+
+    /**
+     * Статус банкомата
+     */
     private StatusATM status;
-    private Boolean workInsuranceMoney;
+
+    /**
+     * Выдает ли деньги банкомат
+     */
+    private boolean workInsuranceMoney;
+
+    /**
+     * Принимает ли деньги банкомат
+     */
     private Boolean workDepositMoney;
+
+    /**
+     * Кол-во денег в банкомате
+     * Изначально хотел ставить BigDecimal, но при сложении и вычитании счетов были ошибки
+     */
     private Double money;
+
+    /**
+     * Стоимость обслуживания банкомата
+     * Изначально хотел ставить BigDecimal, но при сложении и вычитании счетов были ошибки
+     */
     private Double maintenanceCost;
 
-    //TODO Большая буква = final
-    public BankAtm(Integer id, final String name, StatusATM status, Boolean workInsuranceMoney, Boolean workDepositMoney,
-                   Double maintenanceCost, Bank bank, BankOffice bankOffice, Employee employee) {
+
+    /**
+     * Конструктор BankATM
+     * @param id
+     * @param name
+     * @param status
+     * @param workInsuranceMoney
+     * @param workDepositMoney
+     * @param maintenanceCost
+     * @param bank
+     * @param bankOffice
+     * @param employee
+     */
+    public BankAtm(int id, final String name, StatusATM status, Boolean workInsuranceMoney, Boolean workDepositMoney,
+                   final Double maintenanceCost, Bank bank, BankOffice bankOffice, Employee employee) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -43,30 +98,35 @@ public class BankAtm {
     @Override
     public String toString() {
         //TODO StringBuilder
-        String bankATMInformation = "Имя банкомата: " + name + "\nАдрес: " + bankOffice.getAddress() + "\nСтатус: ";
+        String bankATMInformation = String.format("Имя банкомата: %s. \nАдрес: %s. \nСтатус: %s. ", name, bankOffice.getAddress(), status);
         // Выбор статуса работы банкомата
         switch (status) {
             case OPEN -> bankATMInformation += StatusATM.OPEN.getValue();
             case CLOSED -> bankATMInformation += StatusATM.CLOSED.getValue();
             case OUT_OF_MONEY -> bankATMInformation += StatusATM.OUT_OF_MONEY.getValue();
-            default -> throw new IllegalArgumentException("Передан несуществующий статус банкомата");
+            default -> throw new IllegalArgumentException("Передан несуществующий статус банкомата.");
         }
-        bankATMInformation += "\nИмя банка: " + bank.getName() + "\nИмя офиса: " + bankOffice.getName() +
-                "\nИмя обслуживающего сотрудника: " + employee.getFullName();
+        bankATMInformation += String.format("\nИмя банка: %s. \nИмя офиса: %s. \nИмя обслуживающего сотрудника: %s. "
+                , bank.getName(), bankOffice.getName(), employee.getFullName());
 
-        // Проверка на выдачу денег
+        /**
+         * Проверка на выдачу денег
+         */
         if (workInsuranceMoney)
             bankATMInformation += "\nРаботает на выдачу денег";
         else
             bankATMInformation += "\nНе работает на выдачу денег";
 
-        // Проверка на внос денег
+        /**
+         * Проверка на внос денег
+         */
         if (workDepositMoney)
             bankATMInformation += "\nМожно внести деньги";
         else
             bankATMInformation += "\nНельзя внести деньги";
 
-        bankATMInformation += "\nДенежная сумма: " + money + "\nСтоимость обслуживания: " + maintenanceCost;
+        bankATMInformation += String.format("\nДенежная сумма: %s₽. \nСтоимость обслуживания: %s₽.",
+                new DecimalFormat("#0.00").format(money), new DecimalFormat("#0.00").format(maintenanceCost));
         return bankATMInformation;
     }
 }

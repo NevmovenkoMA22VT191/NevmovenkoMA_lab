@@ -1,29 +1,105 @@
 package bank.entity.finance;
 
+import bank.entity.man.Employee;
+import bank.entity.status.StatusATM;
 import bank.entity.status.StatusOffice;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-// BankOffice - объект офис банка, содержит поля:
-// id банковского офиса, название офиса, адрес офиса, статус, можно ли разместить банкомат, кол-во банкоматов в офисе,
-// молжно ли взять кредит, работает ли выдача денег, кол-во денег в банковском офисе, стоимость аренды банковского офиса
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 @Setter
 @Getter
+@AllArgsConstructor
+/**
+ * BankOffice - объект офис банка
+ */
 public class BankOffice {
-    private Integer id;
+    /**
+     * Id офиса банка
+     */
+    private int id;
+
+    /**
+     * НАзвание офиса банка
+     */
     private String name;
+
+    /**
+     * Название банка
+     */
     private Bank bank;
+
+    /**
+     * Адрес офиса банка
+     */
     private String address;
+
+    /**
+     * Статус офиса банка
+     */
     private StatusOffice status;
+
+    /**
+     * Возможно ли установить банкомат
+     */
     private Boolean maySetATM;
-    private Integer countATM;
+
+    /**
+     * Кол-во банкоматов в офисе
+     */
+    private int countATM;
+
+    /**
+     * Можно ли взять кредит
+     */
     private Boolean mayApplyLoan;
+
+    /**
+     *  Работает ли выдача денег
+     */
     private Boolean mayWithdrawMoney;
+
+    /**
+     * Можно ли внести деньги
+     */
     private Boolean mayDepositMoney;
+
+    /**
+     * Кол-во денег на счету офиса банка
+     * Изначально хотел ставить BigDecimal, но при сложении и вычитании счетов были ошибки
+     */
     private Double money;
+
+    /**
+     * Стоимость аренды банковского офиса
+     * Изначально хотел ставить BigDecimal, но при сложении и вычитании счетов были ошибки
+     */
     private Double rentCost;
 
-    public BankOffice(Integer id, String name, Bank bank, String address, StatusOffice status, Double rentCost) {
+    /**
+     * Массив bankATMS интерфейса List
+     */
+    private ArrayList<BankAtm> bankATMS;
+
+    /**
+     * Массив employees интерфейса List
+     */
+    private ArrayList<Employee> employees;
+
+
+    /**
+     * Конструктор BankOffice
+     * @param id
+     * @param name
+     * @param bank
+     * @param address
+     * @param status
+     * @param rentCost
+     */
+    public BankOffice(int id, String name, Bank bank, String address, StatusOffice status, Double rentCost) {
         this.id = id;
         this.name = name;
         this.bank = bank;
@@ -36,40 +112,56 @@ public class BankOffice {
         this.mayDepositMoney = true;
         this.money = 0.0;
         this.rentCost = rentCost;
+        this.bankATMS = new ArrayList<>();
+        this.employees = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        String str =  "Название офиса: " + name + "\nИмя банка: " + bank.getName() + "\nАдрес: " + address +
-                "\nСтатус: ";
-        // Проверка на статус
-        if (status == StatusOffice.OPEN)
-            str+= " работает";
-        else
-            str+= " не работает";
+        String str =  String.format("Название офиса: %s. \nИмя банка: %s. \nАдрес: %s. \nСтатус: %s.",
+                name, bank.getName(), address, status);
 
-        // Проверка на добавление банкомата
+        /**
+         * Проверка статуса офиса
+         */
+        switch (status) {
+            case OPEN -> str += StatusOffice.OPEN.getValue();
+            case CLOSED -> str += StatusOffice.CLOSED.getValue();
+            default -> throw new IllegalArgumentException("Передан несуществующий статус офиса.");
+        }
+
+        /**
+         * Проверка на возможность добавить банкомат в офис
+         */
         if (maySetATM)
             str += "\nМожно добавить банкомат. \nКоличество банкоматов: " + countATM;
         else
             str += "\nНельзя добавить банкомат";
 
-        //TODO STRIng cut
-        // Проверка на выдачу денег
+
+        /**
+         * Проверка на возможность выдавать наличные в офисе банка
+         */
         str += mayWithdrawMoney ? "\nРаботает на выдачу денег" : "\nНе работает на выдачу денег";
 
-        // Проверка на  выдачу кредитов
+        /**
+         * Проверка на возможность выдавать кредиты в офисе банка
+         */
         if (mayApplyLoan)
             str += "\nРаботает на выдачу кредитов";
         else
             str += "\nНе работает на выдачу кредитов";
 
-        // Проверка на возможность внести деньги
+        /**
+         * Проверка на возможность вносить наличные деньги в офис банка
+         */
         if (mayDepositMoney)
             str += "\nМожно внести деньги";
         else
             str += "\nНельзя внести деньги";
-        str += "\nДенежная сумма: " + money + "\nАрендная плата: " + rentCost;
+        str += String.format("\nДенежная сумма: %s₽. \nАрендная плата: %s₽.", new DecimalFormat("#0.00").format(money),
+                new DecimalFormat("#0.00").format(rentCost));
+
         return str;
     }
 }

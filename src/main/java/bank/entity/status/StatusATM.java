@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
+/**
+ * Перечисляемый тип enum StatusATM
+ */
 public enum StatusATM {
     /**
      * Работает

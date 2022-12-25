@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
+/**
+ * Перечисляемый тип enum StatusOffice
+ */
 public enum StatusOffice {
     /**
      * Работает
